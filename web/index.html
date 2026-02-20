@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Opinion Diffusion Lab</title>
+    <link rel="stylesheet" href="/site.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero card">
+        <p class="eyebrow">Interactive Research Sandbox</p>
+        <h1>Opinion Diffusion Lab</h1>
+        <p>
+          This site helps you explore how social-network structure and behavioral update rules shape collective outcomes.
+          You describe a network with <strong>NGL</strong>, describe dynamics with <strong>ORL</strong>, then run a live simulation.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="/sim">Open Simulator</a>
+          <a class="btn ghost" href="/play/weekend-binge">Try Guided Scenario</a>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>How It Works</h2>
+        <div class="triptych">
+          <article>
+            <h3>1. Specify the Network (NGL)</h3>
+            <p>
+              NGL defines who is in the population and how they are connected. You can generate networks from ER, WS, BA,
+              or SBM families, and set initial opinion/threshold distributions.
+            </p>
+          </article>
+          <article>
+            <h3>2. Specify the Dynamics (ORL)</h3>
+            <p>
+              ORL defines how each person updates based on local influence. You can write threshold, probabilistic, and
+              signed-influence rules with clear, auditable expressions.
+            </p>
+          </article>
+          <article>
+            <h3>3. Evolve and Compare</h3>
+            <p>
+              Build a network once, then evolve it over time. Or hold the dynamics fixed and swap network generators to
+              compare structural effects.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Guided Interactive Examples</h2>
+        <p class="subtle">Each page opens the same simulator interface preloaded with a distinct alcohol-consumption diffusion pattern.</p>
+        <div class="grid">
+          <a class="tile" href="/play/weekend-binge">
+            <h3>Weekend Binge Contagion</h3>
+            <p>Clustered communities with strong positive ties and early normative acceleration.</p>
+          </a>
+          <a class="tile" href="/play/recovery-islands">
+            <h3>Recovery Support Islands</h3>
+            <p>Sparse inter-group bridges with asynchronous updates and protective clusters.</p>
+          </a>
+          <a class="tile" href="/play/campus-polarization">
+            <h3>Campus Polarization Pattern</h3>
+            <p>Mixed ties and probabilistic influence showing lock-in or swings.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Documentation</h2>
+        <ul class="docs">
+          <li><a href="/docs/tutorial-nontechnical.pdf">Beginner Tutorial (PDF)</a></li>
+          <li><a href="/docs/dsl-user-guide.pdf">NGL + ORL User Guide (PDF)</a></li>
+          <li><a href="/docs/project-motivation-essay.pdf">Project Motivation Essay (PDF)</a></li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

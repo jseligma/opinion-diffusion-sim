@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Opinion Diffusion Simulator</title>
+    <link rel="stylesheet" href="/sim.css" />
+    <script src="https://unpkg.com/cytoscape@3.29.2/dist/cytoscape.min.js"></script>
+  </head>
+  <body>
+    <main class="layout">
+      <section class="panel controls">
+        <div class="top-links">
+          <a href="/">Project Home</a>
+        </div>
+        <h1 id="hero-title">Opinion Diffusion Simulator</h1>
+        <p id="hero-sub" class="sub">Define NGL + ORL, run, then scrub timeline.</p>
+        <div id="scenario-note" class="scenario-note" hidden></div>
+
+        <label for="ngl">NGL (network)</label>
+        <textarea id="ngl" spellcheck="false">seed 7
+nodes 50
+model SBM {
+  blocks = [20,15,15]
+  P = [[0.18,0.05,0.03],[0.05,0.2,0.04],[0.03,0.04,0.22]]
+}
+node_attr threshold ~ Uniform(1.0,3.0)
+node_attr opinion ~ Categorical({"X":0.45,"notX":0.55})
+edge_sign:
+positive with prob 0.75</textarea>
+
+        <label for="orl">ORL (dynamics)</label>
+        <textarea id="orl" spellcheck="false">state opinion in {"X","notX"}
+param threshold: float in [0,10]
+mode = sync
+let posX = count(neighbors(edge.type=="positive" and neighbor.opinion=="X"))
+let negNotX = count(neighbors(edge.type=="negative" and neighbor.opinion!="X"))
+let negX = count(neighbors(edge.type=="negative" and neighbor.opinion=="X"))
+let posNotX = count(neighbors(edge.type=="positive" and neighbor.opinion!="X"))
+let score = (posX + negNotX) / max(1, (negX + posNotX))
+update:
+  if score > self.threshold then self.opinion := "X" else keep</textarea>
+
+        <div class="row">
+          <label for="steps">Steps</label>
+          <input id="steps" type="number" min="1" max="500" value="25" />
+          <button id="run">Evolve</button>
+          <button id="new-network" type="button">New Network</button>
+        </div>
+
+        <div class="row">
+          <label for="frame">Frame</label>
+          <input id="frame" type="range" min="0" max="0" value="0" />
+          <span id="frame-label">0</span>
+        </div>
+
+        <pre id="stats" class="stats"></pre>
+      </section>
+
+      <section class="panel viz">
+        <div id="cy"></div>
+        <div class="legend">
+          <span class="legend-item"><span class="dot opinion-x"></span>X</span>
+          <span class="legend-item"><span class="dot opinion-notx"></span>notX</span>
+          <span class="legend-item"><span class="line positive"></span>positive edge</span>
+          <span class="legend-item"><span class="line negative"></span>negative edge</span>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/sim.js"></script>
+  </body>
+</html>
